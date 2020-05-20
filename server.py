@@ -52,7 +52,7 @@ def threaded_client(connection,player, gameId):
 	print("Connection ended")
 	#TODO: change game deletion behaviour to setting game as not ready when a player leaves
 	#	   and deleting the game if all players leave
-	if idCount%6==1:
+	if games[gameId].ready%6==1:
 		try:
 			del games[gameId]
 			print("Closing game ", gameId)
