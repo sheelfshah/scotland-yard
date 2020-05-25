@@ -13,6 +13,7 @@ class TextBox(pygame.sprite.Sprite):
     self.image = self.font.render("", 1, [0, 0, 0])
     self.rect = self.image.get_rect()
     self.rect.center=(1200,20)
+    self.blankRect=None
 
   def add_chr(self, char, shiftDown):
     if char in validChars and not shiftDown:
@@ -33,6 +34,7 @@ def display_textBox(textBox, screen):
     blankSurface=pygame.Surface((textBox.max_length*12, textBox.fontSize*1.7))
     blankSurface.fill((128,128,128))
     blankRect=blankSurface.get_rect()
+    textBox.blankRect=pygame.Rect(textBox.rect.center[0]-round(blankRect.width/2),textBox.rect.center[1]-round(blankRect.height/2),textBox.max_length*12, textBox.fontSize*1.7)
     screen.blit(blankSurface, (textBox.rect.center[0]-round(blankRect.width/2),textBox.rect.center[1]-round(blankRect.height/2)))
     screen.blit(textBox.image, textBox.rect)
 
@@ -41,7 +43,7 @@ def get_input_textBox(textBox, screen):
     shiftDown=False
     while running:
       display_textBox(textBox, screen)
-      pygame.display.flip()
+      pygame.display.update(textBox.blankRect)
       for e in pygame.event.get():
         if e.type == pygame.QUIT:
             running = False
@@ -61,6 +63,5 @@ def get_input_textBox(textBox, screen):
                 textBox.update()
             if e.key == pygame.K_RETURN:
                 if len(textBox.text) > 0:
-                    print (textBox.text)
                     running = False
     return textBox.text
