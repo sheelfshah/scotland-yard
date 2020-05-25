@@ -57,7 +57,7 @@ def get_input_textBox(textBox, screen):
                 textBox.text += " "
                 textBox.update()
             if e.key in [pygame.K_RSHIFT, pygame.K_LSHIFT]:
-                shiftDown = True
+                shiftDown = False
             if e.key == pygame.K_BACKSPACE:
                 textBox.text = textBox.text[:-1]
                 textBox.update()
